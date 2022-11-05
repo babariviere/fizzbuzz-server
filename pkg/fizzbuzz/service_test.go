@@ -2,7 +2,11 @@ package fizzbuzz
 
 import (
 	"fmt"
+	"math/rand"
+	"strings"
 	"testing"
+	"testing/quick"
+	"time"
 )
 
 // formatRequest to show in errors
@@ -30,4 +34,51 @@ func TestFizzbuzz(t *testing.T) {
 	if resp != expected {
         t.Fatalf(`Fizzbuzz with params %q, returned %q, but we expected %q`, formatRequest(req), resp, expected)
 	}
+}
+
+// TestFizzbuzzProp calls the default service and does property testing on it
+func TestFizzbuzzProp(t *testing.T) {
+    service := NewFizzbuzz()
+
+    property := func (a, b int) bool {
+        // skip these test cases since they are invalid
+        if a < 1 || b < 1 {
+            return true
+        }
+
+        req := FizzbuzzRequest{
+            Int1: a,
+            Int2: b,
+            Limit: 1000,
+            Str1: "a",
+            Str2: "b",
+        }
+        resp, err := service.GetFizzbuzz(req)
+        if err != nil {
+            return false
+        }
+
+        fbs := strings.Split(resp, ",")
+        if len(fbs) != req.Limit {
+            t.Errorf("Returned length should be %v, got %v", req.Limit, len(fbs))
+            return false
+        }
+        for i, fb := range fbs {
+            idx := i + 1
+            if idx % a == 0 && !strings.HasPrefix(fb, req.Str1) {
+                t.Errorf("Expected prefix %q, got string %q", req.Str1, fb)
+                return false
+            }
+            if idx % b == 0 && !strings.HasSuffix(fb, req.Str2) {
+                t.Errorf("Expected suffix %q, got string %q", req.Str2, fb)
+                return false
+            }
+        }
+        return true
+    }
+
+    r := rand.New(rand.NewSource(time.Now().UnixNano()))
+    if err := quick.Check(property, &quick.Config{Rand: r}); err != nil {
+        t.Errorf("Fizzbuzz tests failed in property testing: %v", err)
+    }
 }
