@@ -82,3 +82,19 @@ func TestFizzbuzzProp(t *testing.T) {
         t.Errorf("Fizzbuzz tests failed in property testing: %v", err)
     }
 }
+
+func TestInvalidParams(t *testing.T) {
+    testCases := []FizzbuzzRequest{
+        {Int1: -1, Int2: 2, Limit: 10, Str1: "a", Str2: "b"},
+        {Int1: 1, Int2: -2, Limit: 10, Str1: "a", Str2: "b"},
+        {Int1: 1, Int2: 2, Limit: 10, Str1: "", Str2: "b"},
+        {Int1: 1, Int2: 2, Limit: 10, Str1: "a", Str2: ""},
+    }
+    service := NewFizzbuzz()
+
+    for _, tc := range testCases {
+        if _, err := service.GetFizzbuzz(tc); err == nil {
+            t.Errorf("Fizzbuzz didn't returned an error with following params: %q", formatRequest(tc))
+        }
+    }
+}
