@@ -45,6 +45,8 @@ func TestFizzbuzzProp(t *testing.T) {
         if a < 1 || b < 1 {
             return true
         }
+        a = a % 1000
+        b = b % 1000
 
         req := FizzbuzzRequest{
             Int1: a,
