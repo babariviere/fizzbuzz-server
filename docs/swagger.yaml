@@ -1,0 +1,50 @@
+basePath: /
+info:
+  contact: {}
+  description: API to generate fizzbuzz sequences
+  title: Fizzbuzz API server
+  version: "1.0"
+paths:
+  /fizzbuzz:
+    get:
+      description: by default, the parameters will use default fizzbuzz parameters
+        if none are provided.
+      parameters:
+      - description: integer for first modulo
+        in: query
+        minimum: 1
+        name: int1
+        type: integer
+      - description: integer for second modulo
+        in: query
+        minimum: 1
+        name: int2
+        type: integer
+      - description: string for first modulo
+        example: fizz
+        in: query
+        name: str1
+        type: string
+      - description: string for second modulo
+        example: buzz
+        in: query
+        name: str2
+        type: string
+      - description: number of fizzbuzz to generate
+        in: query
+        name: limit
+        type: integer
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+      summary: return a fizzbuzz like string, separated by comma, of custom strings
+        and integers provided by user.
+swagger: "2.0"

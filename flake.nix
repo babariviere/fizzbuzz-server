@@ -29,7 +29,7 @@
         };
 
         devShells.default = pkgs.mkShell {
-          buildInputs = with pkgs; [ go gotools go-tools gopls ];
+          buildInputs = with pkgs; [ go gotools go-tools gopls go-swag ];
         };
       });
 }
