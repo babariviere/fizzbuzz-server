@@ -15,7 +15,7 @@
           fizzbuzz-server = pkgs.buildGoModule {
             name = "fizzbuzz-server";
             src = ./.;
-            vendorSha256 = "sha256-pQpattmS9VmO3ZIQUFn66az8GSmB4IvYhTTCFn6SUmo=";
+            vendorSha256 = "sha256-KIvs/Vw3ylM3Arc6rxU8U+oIM/qaLV2ItyIY1yBwczw=";
           };
         };
 
