@@ -1,38 +1,13 @@
 package fizzbuzz
 
 import (
-	"errors"
 	"strconv"
 	"strings"
 )
 
-type FizzbuzzRequest struct {
-    Int1 int
-    Int2 int
-    Limit int
-    Str1 string
-    Str2 string
-}
-
-func (req FizzbuzzRequest) Validate() error {
-    if req.Int1 <= 0 {
-        return errors.New("int1 must be superior to 0")
-    }
-    if req.Int2 <= 0 {
-        return errors.New("int2 must be superior to 0")
-    }
-    if req.Str1 == "" {
-        return errors.New("str1 must be a non empty string")
-    }
-    if req.Str2 == "" {
-        return errors.New("str2 must be a non empty string")
-    }
-    return nil
-}
-
 
 type Service interface {
-    GetFizzbuzz(req FizzbuzzRequest) (string, error)
+    GetFizzbuzz(req GetFizzbuzzReq) (string, error)
 }
 
 func NewFizzbuzz() Service {
@@ -41,7 +16,7 @@ func NewFizzbuzz() Service {
 
 type service struct {}
 
-func (s service) GetFizzbuzz(req FizzbuzzRequest) (string, error) {
+func (s service) GetFizzbuzz(req GetFizzbuzzReq) (string, error) {
     var sb strings.Builder
 
     if err := req.Validate(); err != nil {

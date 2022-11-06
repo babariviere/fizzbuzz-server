@@ -10,13 +10,13 @@ import (
 )
 
 // formatRequest to show in errors
-func formatRequest(req FizzbuzzRequest) string {
+func formatRequest(req GetFizzbuzzReq) string {
     return fmt.Sprintf("int1=%v,int2=%v,str1=%q,str2=%q", req.Int1, req.Int2, req.Str1, req.Str2)
 }
 
 // TestFizzbuzz calls the default service with classic fizzbuzz parameters
 func TestFizzbuzz(t *testing.T) {
-	req := FizzbuzzRequest{
+	req := GetFizzbuzzReq{
 		Int1:  3,
 		Int2:  5,
 		Limit: 20,
@@ -48,7 +48,7 @@ func TestFizzbuzzProp(t *testing.T) {
         a = a % 1000
         b = b % 1000
 
-        req := FizzbuzzRequest{
+        req := GetFizzbuzzReq{
             Int1: a,
             Int2: b,
             Limit: 1000,
@@ -86,7 +86,7 @@ func TestFizzbuzzProp(t *testing.T) {
 }
 
 func TestInvalidParams(t *testing.T) {
-    testCases := []FizzbuzzRequest{
+    testCases := []GetFizzbuzzReq{
         {Int1: -1, Int2: 2, Limit: 10, Str1: "a", Str2: "b"},
         {Int1: 1, Int2: -2, Limit: 10, Str1: "a", Str2: "b"},
         {Int1: 1, Int2: 2, Limit: 10, Str1: "", Str2: "b"},
