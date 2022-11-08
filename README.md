@@ -28,7 +28,7 @@ go run cmd/fizzbuzz-server/main.go
 ### With nix flakes
 
 ```sh
-nix run github:babariviere/fizzbuzz
+nix run github:babariviere/fizzbuzz-server
 ```
 
 ### With docker
