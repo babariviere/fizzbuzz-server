@@ -37,3 +37,19 @@ nix run github:babariviere/fizzbuzz
 docker build -t fizzbuzz .
 docker run -p 3000:3000 fizzbuzz
 ```
+
+## Development
+
+### Generate Swagger API
+
+Install swaggo tool:
+
+```sh
+go install github.com/swaggo/swag/cmd/swag@latest
+```
+
+Regenerate API docs:
+
+```sh
+swag -i -g cmd/fizzbuzz-server/main.go
+```
