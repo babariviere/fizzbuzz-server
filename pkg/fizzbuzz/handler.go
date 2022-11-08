@@ -10,6 +10,12 @@ type Handler struct {
     Service Service
 }
 
+func NewHandler() Handler {
+    return Handler{
+        Service: NewFizzbuzz(),
+    }
+}
+
 // GetFizzbuzz godoc
 //
 // @Summary     return a fizzbuzz like string, separated by comma, of custom strings and integers provided by user.

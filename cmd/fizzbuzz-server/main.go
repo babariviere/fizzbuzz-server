@@ -3,8 +3,8 @@ package main
 import (
 	"fmt"
 
+	_ "github.com/babariviere/fizzbuzz-server/docs"
 	"github.com/babariviere/fizzbuzz-server/pkg/fizzbuzz"
-    _ "github.com/babariviere/fizzbuzz-server/docs"
 	"github.com/gin-gonic/gin"
 
 	swaggerfiles "github.com/swaggo/files"
@@ -16,14 +16,15 @@ import (
 // @description API to generate fizzbuzz sequences
 // @BasePath    /
 func main() {
-    fmt.Println("Hello, World!")
+	fmt.Println("Hello, World!")
 
-    r := gin.Default()
+	r := gin.Default()
+	{
+		handler := fizzbuzz.NewHandler()
+		fizzbuzz.RegisterRoutes(&r.RouterGroup, &handler)
 
-    fizzbuzzH := fizzbuzz.Handler{Service: fizzbuzz.NewFizzbuzz()}
-    fizzbuzz.RegisterRoutes(&r.RouterGroup, &fizzbuzzH)
+	}
+	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
 
-    r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
-
-    r.Run(":3000")
+	r.Run(":3000")
 }
