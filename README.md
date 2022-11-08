@@ -38,6 +38,19 @@ docker build -t fizzbuzz .
 docker run -p 3000:3000 fizzbuzz
 ```
 
+### Customization
+
+You can use both env variables and `.env` file to use custom configurations.
+You can find an example `.env` file in `.env.example`.
+
+Just copy it with:
+
+```sh
+cp .env.example .env
+```
+
+And modify it depending on your needs.
+
 ## Development
 
 ### Generate Swagger API
